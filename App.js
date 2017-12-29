@@ -9,6 +9,7 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import Decks from './components/Decks';
 import Deck from './components/Deck';
 import DeckNew from './components/DeckNew';
+import CardNew from './components/CardNew';
 
 
 
@@ -67,6 +68,15 @@ const MainNavigator = StackNavigator({
   },
   Deck: {
     screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
+  CardNew: {
+    screen: CardNew,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
