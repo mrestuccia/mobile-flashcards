@@ -23,7 +23,6 @@ class Decks extends Component {
       <ScrollView>
         {
           Object.keys(decks).map(deck => (
-            
             <View key={deck} style={styles.item}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate(
                 'Deck',
@@ -33,7 +32,6 @@ class Decks extends Component {
                 <Text style={{ fontSize: 16, color: gray }}>{decks[deck].questions.length} cards</Text>
               </TouchableOpacity>
             </View>
-
           ))
         }
       </ScrollView>
@@ -59,7 +57,7 @@ const styles = StyleSheet.create({
       height: 3
     },
   },
-})
+});
 
 
 function mapStateToProps(decks) {
