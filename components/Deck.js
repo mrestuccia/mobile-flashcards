@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
 import { gray, white, black } from '../utils/colors';
-
+import { SubmitBtn } from './SubmitBtn';
 import { getDeck } from '../utils/api';
 
 class Deck extends Component {
@@ -33,6 +33,13 @@ class Deck extends Component {
     )
   }
 
+  startQuiz = () => {
+    this.props.navigation.navigate(
+      'Quiz',
+      { deckId: this.props.navigation.state.params }
+    )
+  }
+
   render() {
     const { deck } = this.props;
 
@@ -44,18 +51,8 @@ class Deck extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>Deck Detail</Text>
         <Text style={styles.subTitle}>{size} cards</Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={this.addCard}
-            style={styles.grayButton}>
-            <Text>Add Card</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={ev => (null)}
-            style={styles.blackButton}>
-            <Text style={{ color: white }}>Start Quiz</Text>
-          </TouchableOpacity>
-        </View>
+        <SubmitBtn text='Add Card' onPress={this.addCard} />
+        <SubmitBtn text='Start Quiz' onPress={this.startQuiz} />
       </View>
     );
   }
@@ -64,11 +61,6 @@ class Deck extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  buttonContainer: {
-    flex: 1,
-    marginBottom: 'auto',
-    justifyContent: 'center',
   },
   title: {
     fontSize: 20,
@@ -81,26 +73,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20
   },
-  grayButton: {
-    backgroundColor: gray,
-    padding: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: 'center',
-  },
-  blackButton: {
-    backgroundColor: black,
-    padding: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: 'center',
-  },
 })
 
 function mapStateToProps(state, props) {
-
   const { deckId } = props.navigation.state.params;
-
   return {
     deck: state[deckId]
   }

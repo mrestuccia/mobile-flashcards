@@ -52,11 +52,15 @@ class CardNew extends Component {
         <TextInput
           style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
           onChangeText={(question) => this.setState({ question })}
-          value={this.state.question} />
+          value={this.state.question}
+          placeholder='Enter question'
+        />
         <TextInput
           style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
           onChangeText={(answer) => this.setState({ answer })}
-          value={this.state.answer} />
+          value={this.state.answer}
+          placeholder='Enter answer'
+        />
 
         <SubmitBtn onPress={this.submit} />
       </View>
@@ -74,30 +78,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     alignItems: 'center',
-  },
-  iosSubmitBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    borderRadius: 7,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
-  },
-  AndroidSubmitBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 45,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  submitBtnText: {
-    color: white,
-    fontSize: 22,
-    textAlign: 'center',
   },
   center: {
     flex: 1,

@@ -49,13 +49,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 17,
     justifyContent: 'center',
-    shadowRadius: 2,
-    shadowOpacity: 0.8,
-    shadowColor: 'rgba(0, 0, 0, 0.24)',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
   },
 });
 

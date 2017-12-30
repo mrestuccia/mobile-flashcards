@@ -43,7 +43,9 @@ class DeckNew extends Component {
         <TextInput
           style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
           onChangeText={(title) => this.setState({ title })}
-          value={this.state.title} />
+          value={this.state.title}
+          placeholder='Enter title'
+        />
 
         <SubmitBtn onPress={this.submit} />
       </View>
