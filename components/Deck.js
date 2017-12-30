@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+
 import { gray, white, black } from '../utils/colors';
+
 import { getDeck } from '../utils/api';
 
 class Deck extends Component {
-  state = {
-    deck: {}
-  }
 
   componentDidMount() {
     const { deckId } = this.props.navigation.state.params;
@@ -34,7 +34,7 @@ class Deck extends Component {
   }
 
   render() {
-    const { deck } = this.state;
+    const { deck } = this.props;
 
     if (!deck.questions) return null;
 
@@ -97,4 +97,13 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Deck;
+function mapStateToProps(state, props) {
+
+  const { deckId } = props.navigation.state.params;
+
+  return {
+    deck: state[deckId]
+  }
+}
+
+export default connect(mapStateToProps)(Deck);

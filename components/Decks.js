@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
-import { white, gray } from '../utils/colors'
+import { View, Text, StyleSheet, Platform, TouchableOpacity, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
+
+import { white, gray } from '../utils/colors';
 import { getDecks } from '../utils/api';
+import {receiveDecks} from '../actions/';
 
 class Decks extends Component {
-  state = {
-    decks: {},
-  }
+
   componentDidMount() {
+
+    const { dispatch } = this.props;
+
     getDecks()
       .then(decks => {
-        this.setState({ decks })
-      })
+        dispatch(receiveDecks(decks));
+      });
   }
   render() {
-    const { decks } = this.state;
+    const { decks } = this.props;
     return (
-      <View>
+      <ScrollView>
         {
           Object.keys(decks).map(deck => (
+            
             <View key={deck} style={styles.item}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate(
                 'Deck',
@@ -31,7 +36,7 @@ class Decks extends Component {
 
           ))
         }
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -57,5 +62,11 @@ const styles = StyleSheet.create({
 })
 
 
+function mapStateToProps(decks) {
+  return {
+    decks
+  };
+}
 
-export default Decks;
+
+export default connect(mapStateToProps)(Decks);

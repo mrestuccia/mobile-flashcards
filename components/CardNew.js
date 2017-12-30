@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Platform, TextInput } from 'react-native';
+import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+
 import { gray, white, black, purple } from '../utils/colors';
+
+import { SubmitBtn } from './SubmitBtn';
+
 import { addCardToDeck } from '../utils/api';
+import { receiveDecks } from '../actions';
 
-
-function SubmitBtn({ onPress }) {
-  return (
-    <TouchableOpacity
-      style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-      onPress={onPress}>
-      <Text style={styles.submitBtnText}>SUBMIT</Text>
-    </TouchableOpacity>
-  )
-}
 
 
 class CardNew extends Component {
@@ -33,16 +29,18 @@ class CardNew extends Component {
 
 
   submit = () => {
-    const key = 'React';
     const entry = this.state;
+    const { deckId } = this.props.navigation.state.params;
+    const { dispatch } = this.props;
+
 
     this.setState(() => ({ question: '', answer: '' }));
-    
 
-    addCardToDeck(key, entry);
+    this.props.navigation.dispatch(NavigationActions.back({ deckId }))
 
-    this.props.navigation.dispatch(NavigationActions.back({ key: 'Decks' }))
-
+    addCardToDeck(deckId['deckId'], entry).then(decks => {
+      dispatch(receiveDecks(decks));
+    });
 
   }
 
@@ -51,13 +49,13 @@ class CardNew extends Component {
     return (
       <View style={styles.container}>
         <Text>Card New</Text>
-        <TextInput  
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} 
-          onChangeText={(question) => this.setState({question})}
+        <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={(question) => this.setState({ question })}
           value={this.state.question} />
-          <TextInput  
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}} 
-          onChangeText={(answer) => this.setState({answer})}
+        <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={(answer) => this.setState({ answer })}
           value={this.state.answer} />
 
         <SubmitBtn onPress={this.submit} />
@@ -110,4 +108,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default CardNew;
+export default connect()(CardNew);
