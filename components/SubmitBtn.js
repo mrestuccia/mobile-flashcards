@@ -11,7 +11,7 @@ export function SubmitBtn({ text, onPress }) {
         <Text style={styles.submitBtnText}>{text || 'Submit'}</Text>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
