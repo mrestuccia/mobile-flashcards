@@ -36,11 +36,15 @@ class DeckNew extends Component {
     // Clean up
     this.setState(() => ({ title: '' }));
 
-    // Navigate Back
-    this.props.navigation.dispatch(NavigationActions.back());
-
     // Save in local storage
     saveDeck(deck);
+
+    // Navigate to the deck detail
+    this.props.navigation.dispatch(this.props.navigation.navigate(
+      'Deck',
+      { deckId: title }
+    ));
+
   }
 
   render() {

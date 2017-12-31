@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Platform } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 import { white, gray } from '../utils/colors';
 import { SubmitBtn } from './SubmitBtn';
@@ -16,9 +17,11 @@ class Quiz extends Component {
   }
 
   response = (key) => {
-    this.setState({ [key]: this.state[key] + 1 });
-    this.setState({ flip: true })
-    this.setState({ current: this.state.current + 1 });
+      this.setState({
+        [key]: this.state[key] + 1,
+        flip: true,
+        current: this.state.current + 1
+      });
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -31,6 +34,20 @@ class Quiz extends Component {
   flipCard = () => {
     const { flip } = this.state;
     this.setState({ flip: !flip })
+  }
+
+  restart = () => {
+    this.setState({
+      correct: 0,
+      incorrect: 0,
+      current: 0,
+      flip: true
+    })
+  }
+
+  back = () => {
+    const { deckId } = this.props.navigation.state.params;
+    this.props.navigation.dispatch(NavigationActions.back(deckId));
   }
 
 
@@ -47,6 +64,9 @@ class Quiz extends Component {
           <Title text={`Your result is ${result}%`} />
           <SubTitle text={`Correct: ${correct}`} />
           <SubTitle text={`Incorrect: ${incorrect}`} />
+          <SubmitBtn text='Restart Quiz' onPress={() => this.restart()} />
+          <SubmitBtn text='Back to Deck' onPress={() => this.back()} />
+
         </View>
       )
     }
@@ -57,8 +77,8 @@ class Quiz extends Component {
         <SubTitle text={`${current + 1} of ${total}`} />
 
         <View style={styles.container}>
-          <FlipCard 
-            question={card.question} 
+          <FlipCard
+            question={card.question}
             answer={card.answer}
             onPress={this.flipCard}
             flip={flip}
