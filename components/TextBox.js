@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 
 
 export function TextBox({ value, onChangeText, placeholder }) {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     borderColor: '#c9c9c9',
-    borderWidth: 1,
+    borderWidth: Platform.OS === 'ios' ? 1 : 0,
     margin: 15,
     padding: 20,
     borderRadius: 4,

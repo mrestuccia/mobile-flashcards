@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import FlipCard from 'react-native-flip-card'
 
 import { white, gray } from '../utils/colors';
 import { SubmitBtn } from './SubmitBtn';
 import { Title, SubTitle } from './Titles';
+import { FlipCard } from './FlipCard';
 
 class Quiz extends Component {
   state = {
     correct: 0,
     incorrect: 0,
-    current: 0
+    current: 0,
+    flip: true
   }
 
   response = (key) => {
     this.setState({ [key]: this.state[key] + 1 });
+    this.setState({ flip: true })
     this.setState({ current: this.state.current + 1 });
   }
 
@@ -26,9 +28,16 @@ class Quiz extends Component {
     }
   }
 
+  flipCard = () => {
+    const { flip } = this.state;
+    this.setState({ flip: !flip })
+  }
+
+
+
   render() {
     const { deck, total, keys } = this.props;
-    const { correct, incorrect, current } = this.state;
+    const { correct, incorrect, current, flip } = this.state;
     const result = (total > 0) ? Math.round((correct / total) * 100) : 0;
     const card = deck.questions[current];
 
@@ -48,14 +57,12 @@ class Quiz extends Component {
         <SubTitle text={`${current + 1} of ${total}`} />
 
         <View style={styles.container}>
-          <FlipCard alignHeight={true}>
-            <View>
-                <SubTitle text={`[Q]:${card.question}`} />
-            </View>
-            <View>
-              <SubTitle text={`[A]:${card.answer}`} />
-            </View>
-          </FlipCard>
+          <FlipCard 
+            question={card.question} 
+            answer={card.answer}
+            onPress={this.flipCard}
+            flip={flip}
+          />
         </View>
         <View style={styles.container}>
           <SubmitBtn text='Correct' onPress={() => this.response('correct')} />
@@ -77,8 +84,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state, props) {
   const { deckId } = props.navigation.state.params;
-  console.log(deckId)
-  const deck = state[deckId.deckId]; //TODO correct this.
+  const deck = state[deckId.deckId];
   const keys = Object.keys(deck.questions)
   const total = keys.reduce((prev, curr) => prev + 1, 0);
 

@@ -28,7 +28,7 @@ function createNotification() {
       sticky: false,
       vibrate: true,
     }
-  }
+  };
 }
 
 
