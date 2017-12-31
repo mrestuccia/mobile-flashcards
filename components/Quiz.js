@@ -50,7 +50,7 @@ class Quiz extends Component {
         <View style={styles.container}>
           <FlipCard alignHeight={true}>
             <View>
-              <SubTitle text={`[Q]:${card.question}`} />
+                <SubTitle text={`[Q]:${card.question}`} />
             </View>
             <View>
               <SubTitle text={`[A]:${card.answer}`} />
@@ -58,8 +58,8 @@ class Quiz extends Component {
           </FlipCard>
         </View>
         <View style={styles.container}>
-        <SubmitBtn text='Correct' onPress={() => this.response('correct')} />
-        <SubmitBtn text='Incorrect' onPress={() => this.response('incorrect')} />
+          <SubmitBtn text='Correct' onPress={() => this.response('correct')} />
+          <SubmitBtn text='Incorrect' onPress={() => this.response('incorrect')} />
         </View>
 
       </View>
@@ -71,16 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  card: {
-    backgroundColor: white,
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
-    padding: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 17,
-    justifyContent: 'center',
-    borderColor:white,
+    backgroundColor: white
   },
 });
 

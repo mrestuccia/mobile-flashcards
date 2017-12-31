@@ -9,7 +9,7 @@ import { Constants } from 'expo';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 // Helpers
-import { orange, white, black } from './utils/colors';
+import { orange, white, black, darkGray, magenta } from './utils/colors';
 import { setLocalNotification } from './utils/helpers'
 
 // Redux
@@ -54,10 +54,10 @@ const Tabs = TabNavigator({
       header: null
     },
     tabBarOptions: {
-      activeTintColor: Platform.OS === 'ios' ? orange : white,
+      activeTintColor: Platform.OS === 'ios' ? magenta : darkGray,
       style: {
         height: 56,
-        backgroundColor: Platform.OS === 'ios' ? white : orange,
+        backgroundColor: Platform.OS === 'ios' ? darkGray : magenta,
         shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
           width: 0,
@@ -80,7 +80,7 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: orange,
+        backgroundColor: magenta,
       }
     }
   },
@@ -89,7 +89,7 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: orange,
+        backgroundColor: magenta,
       }
     }
   },
@@ -98,7 +98,7 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: orange,
+        backgroundColor: magenta,
       }
     }
   },
@@ -114,7 +114,7 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
-          <DeckStatusBar backgroundColor={orange} barStyle="light-content" />
+          <DeckStatusBar backgroundColor={magenta} barStyle="light-content" />
           <MainNavigator />
         </View>
       </Provider>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform, TextInput, KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, Platform, TextInput } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
-import { gray, white, black, purple } from '../utils/colors';
+import { gray, white, black } from '../utils/colors';
 import { Title, SubTitle } from './Titles'
 import { SubmitBtn } from './SubmitBtn';
 import { TextBox } from './TextBox';
@@ -44,8 +45,12 @@ class DeckNew extends Component {
 
   render() {
     return (
-      <View style={styles.container} behavior="padding">
-        <Title text='Card New' />
+      <KeyboardAwareScrollView
+        style={{ backgroundColor: '#4c69a5' }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.container}
+        scrollEnabled={false}>
+        <Title text='Deck New' />
         <SubTitle text='What is the title of your new deck?' />
         <TextBox
           onChangeText={(title) => this.setState({ title })}
@@ -54,7 +59,7 @@ class DeckNew extends Component {
         />
 
         <SubmitBtn onPress={this.submit} />
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -75,5 +80,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   }
 });
+
 
 export default connect()(DeckNew)

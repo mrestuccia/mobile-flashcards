@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
-import { white, orange } from '../utils/colors';
+import { white, magenta } from '../utils/colors';
 
 export function SubmitBtn({ text, onPress }) {
   return (
@@ -16,7 +16,7 @@ export function SubmitBtn({ text, onPress }) {
 
 const styles = StyleSheet.create({
   iosSubmitBtn: {
-    backgroundColor: orange,
+    backgroundColor: magenta,
     padding: 10,
     borderRadius: 7,
     height: 45,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   AndroidSubmitBtn: {
-    backgroundColor: orange,
+    backgroundColor: magenta,
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,

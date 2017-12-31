@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
-import { gray, white, black, purple } from '../utils/colors';
+import { gray, white, black } from '../utils/colors';
 import { Title } from './Titles';
 import { SubmitBtn } from './SubmitBtn';
 import { TextBox } from './TextBox';

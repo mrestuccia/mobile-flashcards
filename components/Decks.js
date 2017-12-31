@@ -49,15 +49,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: white,
   },
   item: {
-    backgroundColor: white,
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
     padding: 20,
     marginLeft: 10,
     marginRight: 10,
     marginTop: 17,
     justifyContent: 'center',
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderBottomWidth: 1,
+    borderColor: '#c9c9c9'
   },
 });
 
