@@ -3,7 +3,9 @@ import { formatDeckResults, DECKS_STORAGE_KEY } from './decks';
 
 export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then(formatDeckResults);
+    .then(res =>{
+      return formatDeckResults(res);
+    });
 }
 
 export function getDeck(id) {
@@ -13,6 +15,7 @@ export function getDeck(id) {
 }
 
 export function saveDeck(deck) {
+  console.log('saveDeck', deck);
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck));
 }
 

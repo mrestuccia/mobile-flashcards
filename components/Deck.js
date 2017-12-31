@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { gray, white, black } from '../utils/colors';
 import { SubmitBtn } from './SubmitBtn';
+import { Title, SubTitle } from './Titles'
 import { getDeck } from '../utils/api';
 
 class Deck extends Component {
@@ -49,10 +50,13 @@ class Deck extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Deck Detail</Text>
-        <Text style={styles.subTitle}>{size} cards</Text>
+        <Title text='Deck Detail' />
+        <SubTitle text={`${size} cards`} />
         <SubmitBtn text='Add Card' onPress={this.addCard} />
-        <SubmitBtn text='Start Quiz' onPress={this.startQuiz} />
+        {
+          (size>0)?
+          <SubmitBtn text='Start Quiz' onPress={this.startQuiz} />:null
+        }
       </View>
     );
   }

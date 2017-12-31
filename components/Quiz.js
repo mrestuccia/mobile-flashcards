@@ -5,6 +5,7 @@ import FlipCard from 'react-native-flip-card'
 
 import { white, gray } from '../utils/colors';
 import { SubmitBtn } from './SubmitBtn';
+import { Title, SubTitle } from './Titles';
 
 class Quiz extends Component {
   state = {
@@ -18,6 +19,12 @@ class Quiz extends Component {
     this.setState({ current: this.state.current + 1 });
   }
 
+  static navigationOptions = ({ navigation }) => {
+    const { deckId } = navigation.state.params;
+    return {
+      title: `Quiz`
+    }
+  }
 
   render() {
     const { deck, total, keys } = this.props;
@@ -28,31 +35,32 @@ class Quiz extends Component {
     if (current === total) {
       return (
         <View style={styles.container}>
-          <Text>Your result is {result}%</Text>
-          <Text>Correct: {correct}</Text>
-          <Text>Incorrect: {incorrect}</Text>
+          <Title text={`Your result is ${result}%`} />
+          <SubTitle text={`Correct: ${correct}`} />
+          <SubTitle text={`Incorrect: ${incorrect}`} />
         </View>
       )
     }
 
     return (
       <View style={styles.container}>
-        <Text>Quiz</Text>
-        <Text>{current + 1} of {total}</Text>
+        <Title text='Quiz' />
+        <SubTitle text={`${current + 1} of ${total}`} />
 
-        <FlipCard style={styles.card}>
-          <View style={styles.face}>
-            <Text>[question]: {card.question} </Text>
-          </View>
-          <View style={styles.back}>
-            <Text>[answer]:{card.answer}</Text>
-          </View>
-        </FlipCard>
-
-        <SubmitBtn text='correct' onPress={() => this.response('correct')} />
-
-        <SubmitBtn text='incorrect' onPress={() => this.response('incorrect')} />
-
+        <View style={styles.container}>
+          <FlipCard alignHeight={true}>
+            <View>
+              <SubTitle text={`[Q]:${card.question}`} />
+            </View>
+            <View>
+              <SubTitle text={`[A]:${card.answer}`} />
+            </View>
+          </FlipCard>
+        </View>
+        <View style={styles.container}>
+        <SubmitBtn text='Correct' onPress={() => this.response('correct')} />
+        <SubmitBtn text='Incorrect' onPress={() => this.response('incorrect')} />
+        </View>
 
       </View>
     );
@@ -64,31 +72,21 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  row: {
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 30,
-  },
   card: {
-    alignItems: 'center',
     backgroundColor: white,
     borderRadius: Platform.OS === 'ios' ? 16 : 2,
-    padding: 50,
+    padding: 20,
     marginLeft: 10,
     marginRight: 10,
+    marginTop: 17,
     justifyContent: 'center',
+    borderColor:white,
   },
 });
 
 function mapStateToProps(state, props) {
   const { deckId } = props.navigation.state.params;
+  console.log(deckId)
   const deck = state[deckId.deckId]; //TODO correct this.
   const keys = Object.keys(deck.questions)
   const total = keys.reduce((prev, curr) => prev + 1, 0);

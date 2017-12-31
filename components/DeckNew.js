@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Platform, TextInput, KeyboardAvoidingView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import { gray, white, black, purple } from '../utils/colors';
+import { Title, SubTitle } from './Titles'
 import { SubmitBtn } from './SubmitBtn';
+import { TextBox } from './TextBox';
 import { saveDeck } from '../utils/api';
 import { addDeck } from '../actions';
 
@@ -16,6 +18,10 @@ class DeckNew extends Component {
   submit = () => {
     const title = this.state.title;
 
+    // Check that is not empty
+    if (title === '') return null;
+
+    // Create a deck object
     let deck = {
       [title]: {
         title: title,
@@ -30,7 +36,7 @@ class DeckNew extends Component {
     this.setState(() => ({ title: '' }));
 
     // Navigate Back
-    this.props.navigation.dispatch(NavigationActions.back())
+    this.props.navigation.dispatch(NavigationActions.back());
 
     // Save in local storage
     saveDeck(deck);
@@ -38,13 +44,13 @@ class DeckNew extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>What is the title of your new deck?</Text>
-        <TextInput
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+      <View style={styles.container} behavior="padding">
+        <Title text='Card New' />
+        <SubTitle text='What is the title of your new deck?' />
+        <TextBox
           onChangeText={(title) => this.setState({ title })}
-          value={this.state.title}
           placeholder='Enter title'
+          value={this.state.title}
         />
 
         <SubmitBtn onPress={this.submit} />
@@ -57,52 +63,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: white
+    backgroundColor: white,
   },
-  title: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 30,
-    fontSize: 20,
-  },
-  row: {
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-  },
-  iosSubmitBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    borderRadius: 7,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
-  },
-  AndroidSubmitBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 45,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  submitBtnText: {
-    color: white,
-    fontSize: 22,
-    textAlign: 'center',
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 30,
-  },
+  input: {
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    borderColor: '#c9c9c9',
+    borderWidth: 1,
+    margin: 15,
+    padding: 20,
+    borderRadius: 4,
+  }
 });
 
 export default connect()(DeckNew)

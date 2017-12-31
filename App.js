@@ -4,12 +4,18 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { purple, white, black } from './utils/colors';
+// Expo
 import { Constants } from 'expo';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
+// Helpers
+import { orange, white, black } from './utils/colors';
+import { setLocalNotification } from './utils/helpers'
+
+// Redux
 import reducer from './reducers/';
 
+// Components
 import Decks from './components/Decks';
 import Deck from './components/Deck';
 import DeckNew from './components/DeckNew';
@@ -33,7 +39,7 @@ const Tabs = TabNavigator({
     screen: Decks,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <FontAwesome name='list' size={30} color={tintColor} />
     },
   },
   DeckNew: {
@@ -48,10 +54,10 @@ const Tabs = TabNavigator({
       header: null
     },
     tabBarOptions: {
-      activeTintColor: Platform.OS === 'ios' ? purple : white,
+      activeTintColor: Platform.OS === 'ios' ? orange : white,
       style: {
         height: 56,
-        backgroundColor: Platform.OS === 'ios' ? white : purple,
+        backgroundColor: Platform.OS === 'ios' ? white : orange,
         shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
           width: 0,
@@ -74,7 +80,7 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: orange,
       }
     }
   },
@@ -83,7 +89,7 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: orange,
       }
     }
   },
@@ -92,7 +98,7 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: orange,
       }
     }
   },
@@ -101,11 +107,14 @@ const MainNavigator = StackNavigator({
 
 
 export default class App extends React.Component {
+  componentDidMount(){
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
-          <DeckStatusBar backgroundColor={purple} barStyle="light-content" />
+          <DeckStatusBar backgroundColor={orange} barStyle="light-content" />
           <MainNavigator />
         </View>
       </Provider>
